@@ -1,14 +1,14 @@
 package com.example.btube.di
 
+import com.example.btube.data.repository.BiliLoginRepository
+import com.example.btube.data.repository.SearchHistoryRepository
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 /**
  * 数据层依赖注入模块
  */
 val dataModule = module {
-    // TODO: 添加Repository实例
-    // single { BiliHomeRepository(get(), get()) }
-    // single { BiliLoginRepository(get()) }
-    // single { BiliPlayRepository(get()) }
-    // ...
+    single { SearchHistoryRepository(get()) }
+    single { BiliLoginRepository(get(), androidContext()) }
 }

@@ -4,6 +4,29 @@
 
 ---
 
+## [0.3.0-alpha] - 2026-02-04
+
+### ✨ 新增 - 阶段3: 数据层开发
+
+- **Room 数据库**
+  - BTubeDB - 4 个实体表
+  - SearchHistory, DownloadTask, BiliVideoUrl, BiliAudioUrl
+
+- **DAO 层**
+  - SearchHistoryDao - Paging 支持
+  - DownloadTaskDao
+  - BiliSharedSourceDao
+
+- **Repository 层**
+  - SearchHistoryRepository
+  - BiliLoginRepository
+
+- **Koin 集成**
+  - RoomModule 完整配置
+  - DataModule 添加 Repository
+
+---
+
 ## [0.2.0-alpha] - 2026-02-04
 
 ### ✨ 新增 - 阶段2: SDK 模块开发

@@ -90,11 +90,16 @@ bTube/
 - API实现层（AuthApiImpl, UserApiImpl）
 - BTubeApp WBI 初始化集成
 
-### ⏳ 阶段 3: 数据层开发（准备开始）
-- Room 数据库
-- DAO 层
-- Repository 层
-- Paging 分页
+### ✅ 阶段 3: 数据层开发（已完成）
+- Room 数据库（BTubeDB）
+- DAO 层（SearchHistory、DownloadTask、BiliSharedSource）
+- Repository 层（SearchHistoryRepository、BiliLoginRepository）
+- 搜索历史 Paging 支持
+
+### ⏳ 阶段 4: UI 基础组件（准备开始）
+- 主题系统
+- 导航系统
+- AppState
 
 ### 📋 后续阶段
 - 阶段 2: SDK 模块开发
@@ -115,13 +120,14 @@ bTube/
 
 ## 📊 开发进度
 
-**总体进度**: 21.43% (3/14 阶段完成)
+**总体进度**: 28.57% (4/14 阶段完成)
 
 | 模块 | 状态 | 完成度 |
 |------|------|--------|
 | 项目初始化 | ✅ 已完成 | 100% |
 | 基础架构 | ✅ 已完成 | 100% |
 | SDK 模块 | ✅ 已完成 | 100% |
+| 数据层 | ✅ 已完成 | 100% |
 | SDK开发 | ⏳ 待开始 | 0% |
 | 数据层 | ⏳ 待开始 | 0% |
 | UI组件 | ⏳ 待开始 | 0% |
@@ -228,4 +234,4 @@ cd bTube
 **开发状态**: 🚧 积极开发中  
 **最后更新**: 2026-02-04  
 **项目版本**: v0.1.0-alpha  
-**当前阶段**: 阶段3 - 数据层开发
+**当前阶段**: 阶段4 - UI 基础组件
