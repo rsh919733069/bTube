@@ -20,6 +20,7 @@ import androidx.navigation.compose.composable
 import com.example.btube.AppState
 import com.example.btube.features.login.LoginNav
 import com.example.btube.features.main.MainNav
+import com.example.btube.features.player.VideoPlayPlaceholder
 import com.example.btube.features.setting.SettingPlaceholder
 import com.example.btube.features.splash.SplashScreen
 import com.example.btube.ui.viewmodel.SharedViewModel
@@ -96,6 +97,13 @@ fun AppNav(
         composable<AppRoute.MainNav> {
             MainNav(
                 onNavigate = { appNavController.navigate(it) }
+            )
+        }
+
+        composable<AppRoute.Play> {
+            VideoPlayPlaceholder(
+                playParam = sharedViewModel.mPlayParam,
+                onNavigateUp = { appNavController.navigateUp() }
             )
         }
 

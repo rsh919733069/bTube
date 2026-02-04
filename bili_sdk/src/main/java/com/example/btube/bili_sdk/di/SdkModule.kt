@@ -1,8 +1,10 @@
 package com.example.btube.bili_sdk.di
 
 import com.example.btube.bili_sdk.apis.AuthApi
+import com.example.btube.bili_sdk.apis.VideoApi
 import com.example.btube.bili_sdk.apis.impl.AuthApiImpl
 import com.example.btube.bili_sdk.apis.impl.UserApiImpl
+import com.example.btube.bili_sdk.apis.impl.VideoApiImpl
 import com.example.btube.bili_sdk.apis.UserApi
 import org.koin.dsl.module
 
@@ -13,4 +15,5 @@ import org.koin.dsl.module
 val sdkModule = module {
     single<AuthApi> { AuthApiImpl(get()) }
     single<UserApi> { UserApiImpl(get()) }
+    single<VideoApi> { VideoApiImpl(get()) }
 }
