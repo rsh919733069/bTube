@@ -1,0 +1,101 @@
+package com.example.btube.core.extension
+
+import android.Manifest
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
+import android.os.Environment
+import android.provider.Settings
+import androidx.core.app.ActivityCompat
+import com.example.btube.core.SHARED_FILE
+import com.example.btube.model.ShareTarget
+
+/**
+ * Context扩展函数集合
+ */
+
+/**
+ * 保存SharedPreferences值
+ */
+fun Context.setValue(key: String, value: Any) {
+    getSharedPreferences(SHARED_FILE, Activity.MODE_PRIVATE).edit().apply {
+        when (value) {
+            is String -> putString(key, value)
+            is Int -> putInt(key, value)
+            is Float -> putFloat(key, value)
+            is Long -> putLong(key, value)
+            is Boolean -> putBoolean(key, value)
+        }
+        commit()
+    }
+}
+
+/**
+ * 获取SharedPreferences值
+ */
+inline fun <reified T : Any> Context.getValue(key: String, defaultValue: T): T {
+    val prefs = getSharedPreferences(SHARED_FILE, Activity.MODE_PRIVATE)
+    return when (defaultValue) {
+        is String -> prefs.getString(key, defaultValue) as T
+        is Int -> prefs.getInt(key, defaultValue) as T
+        is Float -> prefs.getFloat(key, defaultValue) as T
+        is Long -> prefs.getLong(key, defaultValue) as T
+        is Boolean -> prefs.getBoolean(key, defaultValue) as T
+        else -> defaultValue
+    }
+}
+
+/**
+ * 检查单个权限是否已授予
+ */
+fun Context.checkedPermission(permission: String): Boolean {
+    return ActivityCompat.checkSelfPermission(
+        this, permission
+    ) == PackageManager.PERMISSION_GRANTED
+}
+
+/**
+ * 检查多个权限是否都已授予
+ */
+fun Context.checkedPermissions(permissions: List<String>): Boolean {
+    return permissions.all {
+        if (it == Manifest.permission.MANAGE_EXTERNAL_STORAGE && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            Environment.isExternalStorageManager()
+        } else {
+            checkedPermission(it)
+        }
+    }
+}
+
+/**
+ * 检查是否启用了自动旋转
+ */
+fun Context.isAutoRotateEnabled(): Boolean {
+    return try {
+        Settings.System.getInt(contentResolver, Settings.System.ACCELEROMETER_ROTATION) == 1
+    } catch (_: Settings.SettingNotFoundException) {
+        false
+    }
+}
+
+/**
+ * 获取可分享的应用列表
+ */
+fun Context.getShareTargets(type: String = "text/plain"): List<ShareTarget> {
+    val intent = Intent(Intent.ACTION_SEND).apply {
+        this.type = type
+    }
+
+    val pm = packageManager
+    val resolveInfos = pm.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+
+    return resolveInfos.map { info ->
+        ShareTarget(
+            label = info.loadLabel(pm).toString(),
+            packageName = info.activityInfo.packageName,
+            icon = info.loadIcon(pm)
+        )
+    }
+}

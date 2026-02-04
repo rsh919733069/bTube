@@ -21,4 +21,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "bTube"
 include(":app")
+include(":bili_sdk")
+include(":common_ui_core")
+include(":feature_annotations")
  
