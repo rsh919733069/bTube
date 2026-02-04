@@ -1,0 +1,56 @@
+package com.example.btube.nav
+
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+
+@Serializable
+sealed class AppRoute {
+    @Serializable
+    data object Splash : AppRoute()
+
+    @Serializable
+    data object LoginNav : AppRoute()
+
+    @Serializable
+    data object MainNav : AppRoute()
+
+    @Serializable
+    data object SettingNav : AppRoute()
+
+    @Serializable
+    data object Download : AppRoute()
+
+    @Serializable
+    data object Play : AppRoute()
+
+    @Serializable
+    data object ImagesBrowser : AppRoute()
+
+    @Serializable
+    data object Playlist : AppRoute()
+
+    @Serializable
+    data object History : AppRoute()
+
+    @Serializable
+    data object Search : AppRoute()
+
+    @Serializable
+    data class PlaylistContent(
+        val cover: String,
+        val title: String,
+        val count: Int,
+        val isPrivate: Boolean,
+        val isToView: Boolean = true,
+        val fid: Long? = null
+    ) : AppRoute()
+
+    @Serializable
+    data class Gallery(
+        val initialIndex: Int = 0,
+        val imagesJson: String,
+    ) : AppRoute() {
+        val images: List<Pair<String, String>>
+            get() = Json.decodeFromString(imagesJson)
+    }
+}
